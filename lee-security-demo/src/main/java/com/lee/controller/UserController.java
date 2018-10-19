@@ -16,7 +16,7 @@ public class UserController {
 
 	@GetMapping
 	public String getUser() {
-		return "success";
+		return "successss";
 	}
 
 }
