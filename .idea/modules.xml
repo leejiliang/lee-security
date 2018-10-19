@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/lee-security.iml" filepath="$PROJECT_DIR$/lee-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lee-security-app/lee-security-app.iml" filepath="$PROJECT_DIR$/lee-security-app/lee-security-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lee-security-browser/lee-security-browser.iml" filepath="$PROJECT_DIR$/lee-security-browser/lee-security-browser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lee-security-core/lee-security-core.iml" filepath="$PROJECT_DIR$/lee-security-core/lee-security-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lee-security-demo/lee-security-demo.iml" filepath="$PROJECT_DIR$/lee-security-demo/lee-security-demo.iml" />
+    </modules>
+  </component>
+</project>
