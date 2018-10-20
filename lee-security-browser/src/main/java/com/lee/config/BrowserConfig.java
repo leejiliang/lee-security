@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * @program: lee-security
@@ -21,7 +23,11 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 	PasswordEncoder passwordEncoder() {//实现接口PasswordEncoder,用于加密用户注册的密码,登录时和用户输入的密码匹配.
 		return new BCryptPasswordEncoder();
 	}
+	@Autowired
+	private AuthenticationSuccessHandler leeAuthenticationSuccessHandler;
 
+	@Autowired
+	private AuthenticationFailureHandler leeAuthenticationFaileHandler;
 	@Autowired
 	private SecurityProperties securityProperties;
 	@Override
@@ -30,6 +36,8 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 				.formLogin()//表单登录
 				.loginPage("/authentication/require")
 				.loginProcessingUrl("/authentication/form")
+				.successHandler(leeAuthenticationSuccessHandler)
+				.failureHandler(leeAuthenticationFaileHandler)
 //		http.httpBasic()//内嵌验证,相当于在选择过滤器链路中选择相应的过滤器
 				.and()
 				.authorizeRequests()//对请求授权

@@ -1,13 +1,7 @@
 package com.lee.properties;
 
-import com.sun.tools.javac.file.Locations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
-import javax.xml.stream.Location;
 
 /**
  * @program: springsecurity
