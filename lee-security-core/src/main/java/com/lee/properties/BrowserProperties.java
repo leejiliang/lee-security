@@ -14,6 +14,7 @@ public class BrowserProperties {
 	}
 
 	public void setLoginPage(String loginPage) {
+		System.out.println(loginPage);
 		this.loginPage = loginPage;
 	}
 }
