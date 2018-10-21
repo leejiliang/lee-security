@@ -3,6 +3,7 @@ package com.lee.authentication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lee.properties.LoginType;
 import com.lee.properties.SecurityProperties;
+import com.lee.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class LeeAuthenticationFaileHandler extends SimpleUrlAuthenticationFailur
 		if (LoginType.JSON.equals(securityProperties.browser.getLoginType())) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json;charset=utf-8");
-			response.getWriter().write(objectMapper.writeValueAsString(exception));
+			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
 		}else{
 			super.onAuthenticationFailure(request, response, exception);
 		}

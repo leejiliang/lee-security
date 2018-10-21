@@ -1,5 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
+<meta charset="UTF-8">
 <html>
 <head>
     <title>Title</title>
@@ -11,6 +12,13 @@
     <table>
         <tr><td>username:</td><td><input type="text" name="username"></td></tr>
         <tr><td>password:</td><td><input type="password" name="password"></td></tr>
+        <tr>
+            <td>图形验证码</td>
+            <td>
+                <input type="text" name="imageCode">
+                <img src="/code/image">
+            </td>
+        </tr>
         <tr><td colspa="2"><button type="submit">submit</button></td></tr>
     </table>
 </form>
