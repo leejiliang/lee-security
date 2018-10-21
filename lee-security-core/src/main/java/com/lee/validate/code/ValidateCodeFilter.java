@@ -45,7 +45,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	public void afterPropertiesSet() throws ServletException {
 		super.afterPropertiesSet();
 		String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getValidCode().getImageCodeProterties().getUrl(), ",");
-		urls.addAll(Arrays.asList(configUrls));
+		if (configUrls != null && configUrls.length > 0) {
+			urls.addAll(Arrays.asList(configUrls));
+		}
 		urls.add("/authentication/form");
 	}
 

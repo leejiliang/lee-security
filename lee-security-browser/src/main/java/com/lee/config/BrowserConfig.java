@@ -7,11 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.sql.DataSource;
 
 /**
  * @program: lee-security
@@ -33,6 +39,17 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private SecurityProperties securityProperties;
 
+	@Autowired
+	private UserDetailsService userDetailsService;
+	@Autowired
+	private DataSource dataSource;
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+		jdbcTokenRepository.setDataSource(dataSource);
+//		jdbcTokenRepository.setCreateTableOnStartup(true);
+		return jdbcTokenRepository;
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {//表单登录(默认实现方式)
@@ -48,6 +65,11 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/authentication/form")
 				.successHandler(leeAuthenticationSuccessHandler)
 				.failureHandler(leeAuthenticationFaileHandler)
+				.and()
+				.rememberMe()
+				.tokenRepository(persistentTokenRepository())
+				.tokenValiditySeconds(securityProperties.browser.getRemeberMeSeconds())
+				.userDetailsService(userDetailsService)
 //		http.httpBasic()//内嵌验证,相当于在选择过滤器链路中选择相应的过滤器
 				.and()
 				.authorizeRequests()//对请求授权
