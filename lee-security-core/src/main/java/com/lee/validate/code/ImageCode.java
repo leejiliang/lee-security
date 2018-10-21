@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * @author: Jiliang.Lee
  * @create: 2018-10-20 23:58
  **/
-public class ImageCode {
+public class ImageCode extends ValidateCode {
 	private BufferedImage image;
 	private String code;
 	private LocalDateTime expireTime;
@@ -17,15 +17,13 @@ public class ImageCode {
 
 
 	public ImageCode(BufferedImage image, String code, int expireIn) {
+		super(code,expireIn);
 		this.image = image;
-		this.code = code;
-		this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
 	}
 
 	public ImageCode(BufferedImage image, String code, LocalDateTime expireTime) {
+		super(code,expireTime);
 		this.image = image;
-		this.code = code;
-		this.expireTime = expireTime;
 	}
 
 	public BufferedImage getImage() {

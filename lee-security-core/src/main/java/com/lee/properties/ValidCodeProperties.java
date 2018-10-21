@@ -13,5 +13,6 @@ import lombok.Setter;
 @Setter
 public class ValidCodeProperties {
 	private ImageCodeProterties imageCodeProterties = new ImageCodeProterties();
+	private SmsCodeProterties smsCodeProterties = new SmsCodeProterties();
 
 }
