@@ -1,5 +1,7 @@
 package com.lee.properties;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,14 +13,9 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 @ConfigurationProperties(prefix = "lee.security")
+@Getter
+@Setter
 public class SecurityProperties {
 	public BrowserProperties browser = new BrowserProperties();
-
-	public BrowserProperties getBrowser() {
-		return browser;
-	}
-
-	public void setBrowser(BrowserProperties browser) {
-		this.browser = browser;
-	}
+	private ValidCodeProperties validCode = new ValidCodeProperties();
 }

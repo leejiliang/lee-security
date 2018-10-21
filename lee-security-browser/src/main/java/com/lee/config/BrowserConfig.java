@@ -38,6 +38,8 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {//表单登录(默认实现方式)
 		ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
 		validateCodeFilter.setAuthenticationFailureHandler(leeAuthenticationFaileHandler);
+		validateCodeFilter.setSecurityProperties(securityProperties);
+		validateCodeFilter.afterPropertiesSet();
 
 		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
 				.csrf().disable()//关闭攻击防护
