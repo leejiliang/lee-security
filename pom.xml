@@ -46,13 +46,10 @@
             </plugin>
         </plugins>
     </build>
-
     <modules>
         <module>lee-security-demo</module>
         <module>lee-security-app</module>
         <module>lee-security-core</module>
         <module>lee-security-browser</module>
     </modules>
-
-
 </project>

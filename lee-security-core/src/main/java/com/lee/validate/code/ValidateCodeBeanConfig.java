@@ -1,6 +1,8 @@
 package com.lee.validate.code;
 
 import com.lee.properties.SecurityProperties;
+import com.lee.sms.SmsCodeSender;
+import com.lee.sms.SmsCodeSenderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -23,5 +25,11 @@ public class ValidateCodeBeanConfig {
 		ImageCodeGenerate codeGenerate = new ImageCodeGenerate();
 		codeGenerate.setSecurityProperties(securityProperties);
 		return codeGenerate;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(SmsCodeSender.class)
+	public SmsCodeSender smsCodeSender() {
+		return new SmsCodeSenderImpl();
 	}
 }

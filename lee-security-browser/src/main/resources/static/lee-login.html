@@ -25,5 +25,23 @@
         <tr><td colspa="2"><button type="submit">submit</button></td></tr>
     </table>
 </form>
+
+
+<h2>手机号登录页</h2>
+<h3>mobile login</h3>
+<form action="/authentication/mobile" method="post">
+    <table>
+        <tr><td>mobile:</td><td><input type="text" name="mobile" value="13012345678"></td></tr>
+        <tr>
+            <td>短信验证码</td>
+            <td>
+                <input type="text" name="smscode">
+               <a href="/code/sms?mobile=13012345678">发送验证码</a>
+            </td>
+        </tr>
+        </tr>
+        <tr><td colspa="2"><button type="submit">submit</button></td></tr>
+    </table>
+</form>
 </body>
 </html>

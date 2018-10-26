@@ -14,19 +14,16 @@ import java.time.LocalDateTime;
  * @author: Jiliang.Lee
  * @create: 2018-10-20 23:58
  **/
-@NoArgsConstructor
 @Getter
 @Setter
-public class ImageCode extends ValidCode {
-	private BufferedImage image;
+@AllArgsConstructor
+@NoArgsConstructor
+public class ValidCode {
+	private String code;
+	private LocalDateTime expireTime;
 
-	public ImageCode(String code, LocalDateTime expireTime, BufferedImage image) {
-		super(code, expireTime);
-		this.image = image;
-	}
-
-	public ImageCode(String code, int expireTime, BufferedImage image) {
-		super(code, expireTime);
-		this.image = image;
+	public ValidCode(String code,int expireIn){
+		this.code = code;
+		this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
 	}
 }

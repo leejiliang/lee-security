@@ -12,12 +12,8 @@ import lombok.Setter;
  **/
 @Setter
 @Getter
-public class ImageCodeProterties extends SmsCodeProterties{
-	private int width=67;
-	private int height=23;
-
-	public ImageCodeProterties() {
-		this.setLength(6);
-	}
-
+public class SmsCodeProterties {
+	private int length=6;
+	private int expireIn=60;
+	private String url;
 }

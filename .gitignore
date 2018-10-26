@@ -1,14 +1,1 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea/inspectionProfiles/
-.idea/sonarlint/
-.idea/workspace.xml
-lee-security-app/src/
-lee-security-browser/src/test/
-lee-security-browser/target/
-lee-security-core/src/main/resources/
-lee-security-core/src/test/
-lee-security-core/target/
-lee-security-demo/src/main/resources/resources/
-lee-security-demo/src/test/
-lee-security-demo/target/
-src/

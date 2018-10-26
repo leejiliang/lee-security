@@ -11,10 +11,11 @@ import org.springframework.stereotype.Component;
  * @author: Jiliang.Lee
  * @create: 2018-10-17 23:54
  **/
-@Component
+
 @ConfigurationProperties(prefix = "lee.security")
 @Getter
 @Setter
+@Component
 public class SecurityProperties {
 	public BrowserProperties browser = new BrowserProperties();
 	private ValidCodeProperties validCode = new ValidCodeProperties();

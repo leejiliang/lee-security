@@ -79,20 +79,4 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 		}
 		sessionStrategy.removeAttribute(servletWebRequest,ValidCodeController.SESSION_KEY);
 	}
-
-	public AuthenticationFailureHandler getAuthenticationFailureHandler() {
-		return authenticationFailureHandler;
-	}
-
-	public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
-		this.authenticationFailureHandler = authenticationFailureHandler;
-	}
-
-	public SessionStrategy getSessionStrategy() {
-		return sessionStrategy;
-	}
-
-	public void setSessionStrategy(SessionStrategy sessionStrategy) {
-		this.sessionStrategy = sessionStrategy;
-	}
 }
