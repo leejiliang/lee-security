@@ -4,6 +4,7 @@ import com.lee.properties.SecurityProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -20,6 +21,7 @@ import java.util.Random;
  **/
 @Getter
 @Setter
+@Component
 public class ImageCodeGenerate implements ValidateCodeGenerate {
 
 	@Autowired
@@ -51,6 +53,7 @@ public class ImageCodeGenerate implements ValidateCodeGenerate {
 		for (int i = 0; i < securityProperties.getValidCode().getImageCodeProterties().getLength(); i++) {
 			String rand = String.valueOf(random.nextInt(10));
 			sRand += rand;
+			System.out.println(sRand);
 			g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
 			g.drawString(rand, 13 * i + 6, 16);
 		}

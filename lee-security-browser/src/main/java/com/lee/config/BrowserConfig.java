@@ -75,7 +75,7 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()//对请求授权
 				.antMatchers("/authentication/require","/regist.html"
 						,securityProperties.browser.getLoginPage(),
-						"/code/image","/code/sms").permitAll()
+						"/code/*").permitAll()
 				.anyRequest()//任何请求
 				.authenticated();//需要身份认证
 	}

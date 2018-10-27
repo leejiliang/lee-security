@@ -1,6 +1,5 @@
 package com.lee.validate.code;
 
-import com.lee.controller.ValidCodeController;
 import com.lee.properties.SecurityProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.util.PathMatcher;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -66,7 +64,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	}
 
 	private void validate(ServletWebRequest servletWebRequest)throws ServletRequestBindingException{
-		ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest, ValidCodeController.SESSION_KEY);
+		ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(servletWebRequest, AbstractValidateCodeProcessor.SESSION_KEY_PREFIX+"IMAGE");
 		String codeInRequest = ServletRequestUtils.getStringParameter(servletWebRequest.getRequest(), "imageCode");
 		if (StringUtils.isBlank(codeInRequest)) {
 			throw new ValidateCodeException("验证码的值不能为空.");
@@ -75,8 +73,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 			throw new ValidateCodeException("验证码不存在");
 		}
 		if (!codeInSession.getCode().equals(codeInRequest)) {
+			log.info("codeInRequest:"+codeInRequest);
+			log.info("codeInSession:"+codeInSession.getCode());
 			throw new ValidateCodeException("验证码不匹配");
 		}
-		sessionStrategy.removeAttribute(servletWebRequest,ValidCodeController.SESSION_KEY);
+		sessionStrategy.removeAttribute(servletWebRequest,AbstractValidateCodeProcessor.SESSION_KEY_PREFIX+"IMAGE");
 	}
 }
