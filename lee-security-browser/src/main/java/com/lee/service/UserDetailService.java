@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * @program: springsecurity
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
  * @author: Jiliang.Lee
  * @create: 2018-10-16 20:06
  **/
-@Component
-public class MyUserDetailService implements UserDetailsService {
-	Logger log = LoggerFactory.getLogger(MyUserDetailService.class);
+@Service
+public class UserDetailService implements UserDetailsService {
+	Logger log = LoggerFactory.getLogger(UserDetailService.class);
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;//加密,匹配服务类

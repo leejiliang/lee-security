@@ -44,6 +44,7 @@ public abstract class AbstractValidateCodeProcessor<T> implements ValidateCodePr
 	}
 
 	private void save(ServletWebRequest request, T validateCode) {
+		log.info("token key: "+getProcessorType(request).toUpperCase()+validateCode.toString());
 		sessionStrategy.setAttribute(request, SESSION_KEY_PREFIX + getProcessorType(request).toUpperCase(),validateCode);
 	}
 

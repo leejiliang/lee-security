@@ -1,6 +1,9 @@
 package com.lee.config;
 
+import com.lee.authentication.mobile.SmsCodeAuthenticationFilter;
+import com.lee.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.lee.properties.SecurityProperties;
+import com.lee.validate.code.SmsValidateCodeFilter;
 import com.lee.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +38,8 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 	private AuthenticationSuccessHandler leeAuthenticationSuccessHandler;
 
 	@Autowired
+	private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+	@Autowired
 	private AuthenticationFailureHandler leeAuthenticationFaileHandler;
 	@Autowired
 	private SecurityProperties securityProperties;
@@ -58,7 +63,14 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 		validateCodeFilter.setSecurityProperties(securityProperties);
 		validateCodeFilter.afterPropertiesSet();
 
-		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+		SmsValidateCodeFilter smsValidateCodeFilter = new SmsValidateCodeFilter();
+		smsValidateCodeFilter.setAuthenticationFailureHandler(leeAuthenticationFaileHandler);
+		smsValidateCodeFilter.setSecurityProperties(securityProperties);
+		smsValidateCodeFilter.afterPropertiesSet();
+
+
+		http.addFilterBefore(smsValidateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+				.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
 				.csrf().disable()//关闭攻击防护
 				.formLogin()//表单登录
 				.loginPage("/authentication/require")
@@ -73,10 +85,11 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 //		http.httpBasic()//内嵌验证,相当于在选择过滤器链路中选择相应的过滤器
 				.and()
 				.authorizeRequests()//对请求授权
-				.antMatchers("/authentication/require","/regist.html"
-						,securityProperties.browser.getLoginPage(),
+				.antMatchers("/authentication/require", "/regist.html"
+						, securityProperties.browser.getLoginPage(),
 						"/code/*").permitAll()
 				.anyRequest()//任何请求
-				.authenticated();//需要身份认证
+				.authenticated()
+				.and().apply(smsCodeAuthenticationSecurityConfig);//需要身份认证
 	}
 }
