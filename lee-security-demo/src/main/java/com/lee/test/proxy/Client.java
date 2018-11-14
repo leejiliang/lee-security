@@ -34,11 +34,11 @@ public class Client {
 //		Subject proxyInstance = (Subject)proxyFacroty.getProxyInstance();
 //		proxyInstance.sayHello();
 
-//		Class<?> proxyClass= Proxy.getProxyClass(Client.class.getClassLoader(), Subject.class);
-//		final Constructor<?> cons = proxyClass.getConstructor(InvocationHandler.class);
-//		final InvocationHandler ih = new MyInvocationHandler(new RealSubject());
-//		Subject realSubject= (Subject)cons.newInstance(ih);
-//		realSubject.sayHello();
+		Class<?> proxyClass= Proxy.getProxyClass(Client.class.getClassLoader(), Subject.class);
+		final Constructor<?> cons = proxyClass.getConstructor(InvocationHandler.class);
+		final InvocationHandler ih = new MyInvocationHandler(new RealSubject());
+		Subject realSubject= (Subject)cons.newInstance(ih);
+		realSubject.sayHello();
 
 
 
