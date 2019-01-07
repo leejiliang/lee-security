@@ -19,4 +19,5 @@ import org.springframework.stereotype.Component;
 public class SecurityProperties {
 	public BrowserProperties browser = new BrowserProperties();
 	private ValidCodeProperties validCode = new ValidCodeProperties();
+	private SocialProperties socialProperties = new SocialProperties();
 }

@@ -1,14 +1,17 @@
 package com.lee.config;
 
+import com.lee.authentication.LeeLogoutSuccessHandler;
 import com.lee.authentication.mobile.SmsCodeAuthenticationFilter;
 import com.lee.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.lee.properties.SecurityProperties;
 import com.lee.validate.code.SmsValidateCodeFilter;
 import com.lee.validate.code.ValidateCodeFilter;
+import com.sun.tools.corba.se.idl.constExpr.And;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,22 +22,25 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
 /**
  * @program: lee-security
- * @description: cofnig
+ * @description: config
  * @author: Jiliang.Lee
  * @create: 2018-10-19 20:41
  **/
 @Configuration
+@EnableWebSecurity
 public class BrowserConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	PasswordEncoder passwordEncoder() {//实现接口PasswordEncoder,用于加密用户注册的密码,登录时和用户输入的密码匹配.
 		return new BCryptPasswordEncoder();
 	}
 	@Autowired
+
 	private AuthenticationSuccessHandler leeAuthenticationSuccessHandler;
 
 	@Autowired
@@ -48,11 +54,16 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 	@Autowired
 	private DataSource dataSource;
+
+	@Autowired
+	private LeeLogoutSuccessHandler leeLogoutSuccessHandler;
+
+	@Autowired
+	private SpringSocialConfigurer leeSocialSecurityConfig;
 	@Bean
 	public PersistentTokenRepository persistentTokenRepository() {
 		JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
 		jdbcTokenRepository.setDataSource(dataSource);
-//		jdbcTokenRepository.setCreateTableOnStartup(true);
 		return jdbcTokenRepository;
 	}
 
@@ -78,6 +89,11 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 				.successHandler(leeAuthenticationSuccessHandler)
 				.failureHandler(leeAuthenticationFaileHandler)
 				.and()
+				.logout()
+				.logoutUrl("/signout")
+//				.logoutSuccessUrl("/logout.html")
+				.logoutSuccessHandler(leeLogoutSuccessHandler)
+				.and()
 				.rememberMe()
 				.tokenRepository(persistentTokenRepository())
 				.tokenValiditySeconds(securityProperties.browser.getRemeberMeSeconds())
@@ -86,10 +102,12 @@ public class BrowserConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.authorizeRequests()//对请求授权
 				.antMatchers("/authentication/require", "/regist.html"
-						, securityProperties.browser.getLoginPage(),
+						, securityProperties.browser.getLoginPage(),"/auth/qq",
 						"/code/*").permitAll()
 				.anyRequest()//任何请求
 				.authenticated()
-				.and().apply(smsCodeAuthenticationSecurityConfig);//需要身份认证
+				.and().apply(smsCodeAuthenticationSecurityConfig)
+				.and().apply(leeSocialSecurityConfig);//需要身份认证
+
 	}
 }
