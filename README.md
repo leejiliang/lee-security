@@ -10,3 +10,4 @@ step
 4. commit codes.
 ### this is a develop feature
 > concurrentDemo 并发Practise
+- [Atomic](http://note.youdao.com/noteshare?id=56ba68771881dc2837c47caa961f9b55)
