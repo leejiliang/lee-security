@@ -19,3 +19,8 @@ step
 - [DeadLock](http://note.youdao.com/noteshare?id=6376b422b76d909bfdc9a7660a5abbd7)
 - [Synchronized](http://note.youdao.com/noteshare?id=dc332d0dddaa4b73742cff90ea3ee355)
 - [可见性](http://note.youdao.com/noteshare?id=3e1b7de9b7664667dca9e10142086e3b)
+- [多线程并发最佳实践](http://note.youdao.com/noteshare?id=72773f07def36af24a555e7d851197f4)
+- [Spring与线程安全](http://note.youdao.com/noteshare?id=6399fb496e5714457a5f6682889e790a)
+- [HashMap与ConcurrentHashMap](http://note.youdao.com/noteshare?id=add1ffe075340eb35256fcab307382ef)
+- []()
+- []()
